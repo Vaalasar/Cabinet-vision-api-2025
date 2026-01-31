@@ -1,0 +1,88 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Platforms>x64;x86</Platforms>
+    <AssemblyTitle>Cabinet Vision SDK 2025</AssemblyTitle>
+    <AssemblyDescription>Comprehensive SDK for Cabinet Vision 2025 integration</AssemblyDescription>
+    <AssemblyCompany>Cabinet Vision SDK</AssemblyCompany>
+    <AssemblyProduct>Cabinet Vision SDK 2025</AssemblyProduct>
+    <AssemblyVersion>2025.1.0.0</AssemblyVersion>
+    <AssemblyFileVersion>2025.1.0.0</AssemblyFileVersion>
+    <Copyright>Copyright © 2025 Cabinet Vision SDK</Copyright>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>DEBUG;TRACE;NET8_0_WINDOWS;X64</DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DefineConstants>TRACE;NET8_0_WINDOWS;X64</DefineConstants>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>DEBUG;TRACE;NET8_0_WINDOWS;X86</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DefineConstants>TRACE;NET8_0_WINDOWS;X86</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.IO.Packaging" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Cabinet Vision Native DLL References -->
+    <Reference Include="CVAutomate">
+      <HintPath>..\..\CV 2025\CVAutomate.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CVManaged">
+      <HintPath>..\..\CV 2025\CVManaged.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CVGlue">
+      <HintPath>..\..\CV 2025\CVGlue.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="XCAD">
+      <HintPath>..\..\CV 2025\XCAD.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="XCore">
+      <HintPath>..\..\CV 2025\XCore.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="XDAL">
+      <HintPath>..\..\CV 2025\XDAL.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="XFactory">
+      <HintPath>..\..\CV 2025\XFactory.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CopyNativeDLLs" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+      <NativeDLLs Include="..\..\CV 2025\*.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(NativeDLLs)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>
